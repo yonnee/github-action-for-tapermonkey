@@ -70,7 +70,7 @@ pattern = re.compile("^@source(.*)$")
 db = leveldb.LevelDB(leveldb_dir)
 
 for k, v in db.RangeIter():
-    m = pattern.match(k.decode('utf-8'))
+    m = pattern.match(k.decode('ISO-8859-1'))
     if m:
         name = re.sub("[\W\b]", "_", m.groups()[0].strip())
         # full_name = "%s.user.js" % name
@@ -78,9 +78,9 @@ for k, v in db.RangeIter():
 
         print("Writing to %s" % full_name)
 
-        content = json.JSONDecoder().decode(v.decode('utf-8'))['value']
+        content = json.JSONDecoder().decode(v.decode('ISO-8859-1'))['value']
 
-        with codecs.open(full_name, 'w', 'utf-8') as text_file:
+        with codecs.open(full_name, 'w', 'ISO-8859-1') as text_file:
             text_file.write(content)
 # pack
 # "zip", "tar", "gztar","bztar", or "xztar".
